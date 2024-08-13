@@ -15,11 +15,7 @@ function randomWord() {
 }
 
 function formatWord(word) {
-    return `<div class="word">
-        <span class="letter">
-            ${word.split('').join('</span><span class="letter">')}
-        </span>
-    </div>`;
+    return `<div class="word"><span class="letter">${word.split('').join('</span><span class="letter">')}</span></div>`;
 }
 
 
@@ -32,11 +28,15 @@ function newGame() {
         const formattedRandomWord = formatWord(randomWordRetrieved);
         wordDiv.innerHTML += formattedRandomWord;
     }
-    document.querySelector(".word")
+    addClass(document.querySelector(".word"), "current")
+    addClass(document.querySelector(".letter"), "current")
 }
 
 document.getElementById("game").addEventListener("keyup", e => {
     const key = e.key
+    const currentLetter = document.querySelector('.letter.current')
+    const expected = currentLetter.innerHTML
+    console.log({key, expected})
 })
 
 newGame();
