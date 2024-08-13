@@ -69,7 +69,13 @@ document.getElementById("game").addEventListener("keyup", e => {
 
         addClass(currentWord.nextSibling.firstChild, "current") 
     }
-
+    
+    // Moving cursor
+    const nextLetter = document.querySelector(".letter.current")
+    const cursor = document.getElementById("cursor")
+    const nextWord = document.querySelector(".word.current")
+    cursor.style.top = (nextLetter || nextWord).getBoundingClientRect().top + 2 + 'px'
+    cursor.style.left = (nextLetter || nextWord).getBoundingClientRect()[nextLetter ? 'left' : "right"] + 2 + 'px'
     
 })
 
