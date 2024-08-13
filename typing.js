@@ -34,7 +34,7 @@ document.getElementById("game").addEventListener("keyup", e => {
     const key = e.key
     const currentWord = document.querySelector(".word.current")
     const currentLetter = document.querySelector('.letter.current')
-    const expected = currentLetter.innerHTML
+    const expected = currentLetter?.innerHTML || " "
 
     const isLetter = key.length === 1 && key !== " ";
     const isSpace = key === " "
@@ -43,7 +43,14 @@ document.getElementById("game").addEventListener("keyup", e => {
         if (currentLetter) {
             addClass(currentLetter, key === expected ? "correct" : "incorrect")
             removeClass(currentLetter, "current")
-            addClass(currentLetter.nextSibling, "current")
+            if (currentLetter.nextSibling) {
+                addClass(currentLetter.nextSibling, "current")
+            }
+        } else {
+            const incorrectLetter = document.createElement("span")
+            incorrectLetter.innerHTML = key
+            incorrectLetter.className = 'letter incorrect extra'
+            currentWord.appendChild(incorrectLetter)
         }
     }
     
