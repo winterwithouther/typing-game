@@ -56,6 +56,27 @@ button {
     line-height: 35px;
     height: 105px;
     overflow: hidden;
+    position: relative;
+}
+
+#words {
+    filter: blur(5px);
+}
+
+#game:focus #words {
+    filter: blur(0);
+    color: var(--textSecondary)
+}
+
+#focus-error {
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    padding-top: 35px;
+}
+
+#game:focus #focus-error {
+    display: none;
 }
 
 div.word {
@@ -63,4 +84,12 @@ div.word {
     font-family: "Roboto Mono", sans-serif;
     margin: 0 5px;
 
+}
+
+.letter.correct {
+    color: #fff;
+}
+
+.letter.incorrect {
+    color: #f55;
 }
