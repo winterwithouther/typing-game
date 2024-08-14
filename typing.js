@@ -34,6 +34,11 @@ function newGame() {
     window.timer = null
 }
 
+function gameOver() {
+    clearInterval(window.timer)
+    addClass(document.getElementById("game"), "over")
+}
+
 document.getElementById("game").addEventListener("keyup", e => {
     const key = e.key
     const currentWord = document.querySelector(".word.current")
@@ -45,7 +50,11 @@ document.getElementById("game").addEventListener("keyup", e => {
     const isBackspace = key === "Backspace"
     const isFirstLetter = currentLetter === currentWord.firstChild
 
-    if(!window,timer && isLetter) {
+    if (document.querySelector("#game.over")) {
+        return
+    }
+
+    if(!window.timer && isLetter) {
         window.timer = setInterval(() => {
             if (!window.gameStart) {
                 window.gameStart = (new Date()).getTime()
@@ -56,9 +65,9 @@ document.getElementById("game").addEventListener("keyup", e => {
             const sPassed = Math.round(msPassed / 1000)
             const sLeft = (gameTime / 1000) - sPassed
             if (sLeft <= 0) {
-
+                gameOver()
             } 
-            document.getElementById("info").innerHTML = msPassed + ""
+            document.getElementById("info").innerHTML = sLeft + ""
         }, 1000)
     }
 
