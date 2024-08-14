@@ -90,6 +90,12 @@ document.getElementById("game").addEventListener("keyup", e => {
             removeClass(currentLetter.previousSibling, "correct")
             addClass(currentLetter.previousSibling, "current")
         }
+
+        if (!currentLetter) {
+            addClass(currentLetter.lastChild, "current")
+            removeClass(currentWord.lastChild, "incorrect")
+            removeClass(currentWord.lastChild, "correct")
+        }
     }
     
     // Moving cursor
