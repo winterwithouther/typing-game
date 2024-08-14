@@ -1,4 +1,4 @@
-const words = "but or and where how some cool people however something then when done they him her state".split(" ");
+const words = "and ok where but so how when state people interest program develop ground mine done soon help forward into the end".split(" ");
 const wordsCount = words.length;
 const gameTime = 30 * 1000
 window.timer = null
@@ -34,9 +34,24 @@ function newGame() {
     window.timer = null
 }
 
+function getWpm() {
+    const words = [...document.querySelectorAll(".word")]
+    const lastTypedWord = document.querySelector(".word.current")
+    const lastTypedWordIndex = words.indexOf(lastTypedWord)
+    const typedWords = words.slice(0, lastTypedWordIndex)
+    const correctWords = typedWords.filter(word => {
+        const letters = [...word.children]
+        const incorrectLetters = letters.filter(letter => letter.className.includes("incorrect"))
+        const correctLetters = letters.filter(letter => letter.className.includes("correct"))
+        return incorrectLetters.length === 0 && correctLetters.length == letters.length
+    })
+    return correctWords.length / gameTime * 60000;
+}
+
 function gameOver() {
     clearInterval(window.timer)
     addClass(document.getElementById("game"), "over")
+    document.getElementById("info").innerHTML = `WPM: ${getWpm()}`
 }
 
 document.getElementById("game").addEventListener("keyup", e => {
@@ -66,6 +81,7 @@ document.getElementById("game").addEventListener("keyup", e => {
             const sLeft = (gameTime / 1000) - sPassed
             if (sLeft <= 0) {
                 gameOver()
+                return
             } 
             document.getElementById("info").innerHTML = sLeft + ""
         }, 1000)
@@ -143,6 +159,10 @@ document.getElementById("game").addEventListener("keyup", e => {
     cursor.style.top = (nextLetter || nextWord).getBoundingClientRect().top + 2 + 'px'
     cursor.style.left = (nextLetter || nextWord).getBoundingClientRect()[nextLetter ? 'left' : "right"] + 2 + 'px'
     
+})
+
+document.getElementById("new-game-button").addEventListener("click", () => {
+    newGame()
 })
 
 

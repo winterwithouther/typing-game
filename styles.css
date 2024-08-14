@@ -118,13 +118,7 @@ div.word {
     height: 1.6rem;
     background-color: var(--primaryColor);
     position: fixed;
-    top: 188px;
-    left: 83px;
     animation: blink 1s infinite;
-}
-
-#game:focus #cursor {
-    display: block;
 }
 
 #game.over #words {
@@ -138,4 +132,22 @@ div.word {
 
 #game.over #forcus-error {
     display: none;
+}
+
+@keyframes blink-background {
+    0% {
+        background-color: rgba(200, 200, 200, 0.1);
+    }
+
+    50% {
+        background-color: rgba(200, 200, 200, 0);
+    }
+
+    100% {
+        background-color: rgba(200, 200, 200, 0.1);
+    }
+}
+
+.letter.current {
+    animation: blink-background 1s infinite;
 }
