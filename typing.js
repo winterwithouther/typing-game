@@ -38,6 +38,8 @@ document.getElementById("game").addEventListener("keyup", e => {
 
     const isLetter = key.length === 1 && key !== " ";
     const isSpace = key === " "
+    const isBackspace = key === "Backspace"
+    const isFirstLetter = currentLetter === currentWord.firstChild
 
     if (isLetter) {
         if (currentLetter) {
@@ -68,6 +70,26 @@ document.getElementById("game").addEventListener("keyup", e => {
         }
 
         addClass(currentWord.nextSibling.firstChild, "current") 
+    }
+
+    if (isBackspace) {
+        if (currentLetter && isFirstLetter) {
+            // make prev word current, last letter current
+            removeClass(currentWord, "current")
+            addClass(currentWord.previousSibling, "current")
+            removeClass(currentLetter, "current")
+            addClass(currentWord.previousSibling.lastChild, "current")
+            removeClass(currentWord.previousSibling.lastChild, "incorrect")
+            removeClass(currentWord.previousSibling.lastChild, "correct")
+        }
+
+        if (currentLetter && !isFirstLetter) {
+            // move back one letter, invalidate letter
+            removeClass(currentLetter, "current")
+            removeClass(currentLetter.previousSibling, "incorrect")
+            removeClass(currentLetter.previousSibling, "correct")
+            addClass(currentLetter.previousSibling, "current")
+        }
     }
     
     // Moving cursor
