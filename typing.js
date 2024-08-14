@@ -21,7 +21,7 @@ function formatWord(word) {
 function newGame() {
     const wordDiv = document.getElementById("words");
     wordDiv.innerHTML = "";
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 200; i++) {
         const randomWordRetrieved = randomWord();
         const formattedRandomWord = formatWord(randomWordRetrieved);
         wordDiv.innerHTML += formattedRandomWord;
@@ -98,6 +98,14 @@ document.getElementById("game").addEventListener("keyup", e => {
         }
     }
     
+    // move lines / words
+    if (currentWord.getBoundingClientRect().top > 250) {
+        const words = document.getElementById("words")
+        const margin = parseInt(words.style.marginTop || "0px")
+        words.style.marginTop = (margin - 35) + 'px'
+
+    }
+
     // Moving cursor
     const nextLetter = document.querySelector(".letter.current")
     const cursor = document.getElementById("cursor")
