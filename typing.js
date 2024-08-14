@@ -1,5 +1,8 @@
 const words = "but or and where how some cool people however something then when done they him her state".split(" ");
 const wordsCount = words.length;
+const gameTime = 30 * 1000
+window.timer = null
+window.gameStart = null
 
 function addClass(el, name) {
     el.className += ' '+name
@@ -28,6 +31,7 @@ function newGame() {
     }
     addClass(document.querySelector(".word"), "current")
     addClass(document.querySelector(".letter"), "current")
+    window.timer = null
 }
 
 document.getElementById("game").addEventListener("keyup", e => {
@@ -40,6 +44,23 @@ document.getElementById("game").addEventListener("keyup", e => {
     const isSpace = key === " "
     const isBackspace = key === "Backspace"
     const isFirstLetter = currentLetter === currentWord.firstChild
+
+    if(!window,timer && isLetter) {
+        window.timer = setInterval(() => {
+            if (!window.gameStart) {
+                window.gameStart = (new Date()).getTime()
+            }
+
+            const currentTime = (new Date()).getTime();
+            const msPassed = currentTime - window.gameStart
+            const sPassed = Math.round(msPassed / 1000)
+            const sLeft = (gameTime / 1000) - sPassed
+            if (sLeft <= 0) {
+
+            } 
+            document.getElementById("info").innerHTML = msPassed + ""
+        }, 1000)
+    }
 
     if (isLetter) {
         if (currentLetter) {
